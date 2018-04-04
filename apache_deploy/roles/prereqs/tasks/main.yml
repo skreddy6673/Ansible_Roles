@@ -1,0 +1,29 @@
+---
+- name: installing php and libraries
+  yum:
+      name: "{{ item }}"
+      state: present
+  become: true
+  with_items:
+        - php 
+        - php-gd 
+        - php-intl 
+        - php-ldap 
+        - php-ZendFramework 
+        - php-ZendFramework-Db-Adapter-Pdo-Mysql
+        - php-pgsql
+
+- name: Changing the time zone in php.ini file
+  lineinfile:
+          dest: "/etc/php.ini"
+          state: "present"
+          regexp: ';date.timezone ='
+          line: 'date.timezone = Asia/Kolkata'
+          backup: yes
+  become: true
+
+- name: Disabling SELinux
+  selinux:
+    state: disabled
+  become: true
+

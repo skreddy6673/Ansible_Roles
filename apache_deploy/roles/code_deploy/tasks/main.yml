@@ -1,0 +1,6 @@
+---
+- name: Deployiing Code to Apache.
+  synchronize: 
+       src: "{{ role_path }}/files/" 
+       dest: /var/www/html/
+  notify: restart apache
